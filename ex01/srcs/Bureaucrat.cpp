@@ -6,7 +6,7 @@
 /*   By: bigo <rotrojan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:08:01 by bigo              #+#    #+#             */
-/*   Updated: 2022/01/10 19:45:12 by bigo             ###   ########.fr       */
+/*   Updated: 2022/01/10 21:57:00 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,26 @@ void	Bureaucrat::increment_grade(void)
 
 char const	*Bureaucrat::GradeTooHighException::what(void) const throw()
 {
-	return ("bureaucrat's grade cannot be above 1");
+	return ("bureaucrat 's grade cannot be above 1");
 }
 
 char const	*Bureaucrat::GradeTooLowException::what(void) const throw()
 {
 	return ("bureaucrat's grade cannot be under 150");
+}
+
+void	Bureaucrat::sign_form(Form &form)
+{
+	try
+	{
+		form.be_signed(*this);
+		std::cout << this->_name << " signs " << form.get_name() << std::endl;
+	}
+	catch (std::exception &except)
+	{
+		std::cout << this->_name << " cannot sign " << form.get_name()
+			<< " because " << except.what() << std::endl;
+	}
 }
 
 std::ostream	&operator<<(std::ostream &ostream, Bureaucrat const &rhs)
