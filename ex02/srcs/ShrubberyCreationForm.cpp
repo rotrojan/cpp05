@@ -6,7 +6,7 @@
 /*   By: bigo <rotrojan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 01:25:32 by bigo              #+#    #+#             */
-/*   Updated: 2022/01/11 15:41:33 by bigo             ###   ########.fr       */
+/*   Updated: 2022/01/12 02:03:45 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <fstream>
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target):
-	AForm("ShrubberyCreationForm", 145, 137), _target(target)
+	AForm("ShrubberyCreationForm", SIGN_GRADE_SHRUB, EXEC_GRADE_SHRUB), _target(target)
 {
 	std::cout << "ShrubberyCreationForm created for target "
 		<< this->_target << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &form):
-	AForm("ShrubberyCreationForm", 145, 137), _target(form._target)
+	AForm("ShrubberyCreationForm", SIGN_GRADE_SHRUB, EXEC_GRADE_SHRUB), _target(form._target)
 {
 	std::cout << "ShrubberyCreationForm copy created for target"
 		<< this->_target << std::endl;
@@ -48,6 +48,7 @@ void	ShrubberyCreationForm::do_execute(void) const
 		std::cerr << "Error: cannot create file" << std::endl;
 	else
 	{
+		std::cout << "Planting a shrubbery in " << file_name << std::endl;
 		file << "                                              ." << std::endl;
 		file << "                                   .         ;" << std::endl;
 		file << "      .              .              ;%     ;;" << std::endl;

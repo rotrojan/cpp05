@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/01/11 14:49:39 by bigo             ###   ########.fr        #
+#    Updated: 2022/01/12 02:27:36 by bigo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ SRCS =	main.cpp					\
 		Bureaucrat.cpp				\
 		AForm.cpp					\
 		ShrubberyCreationForm.cpp	\
+		RobotomyRequestForm.cpp		\
+		PresidentialPardonForm.cpp	\
 
 # The file where make will look for all the sources (in addition to the root
 # directory of the Makefile)

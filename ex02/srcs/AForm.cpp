@@ -6,7 +6,7 @@
 /*   By: bigo <rotrojan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:43:47 by bigo              #+#    #+#             */
-/*   Updated: 2022/01/11 15:31:08 by bigo             ###   ########.fr       */
+/*   Updated: 2022/01/12 01:34:59 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	AForm::execute(Bureaucrat const &executor) const
 {
 	if (this->_is_signed == false)
 		throw AForm::NotSignedException();
-	do_execute();
 	if (this->_exec_grade < executor.get_grade())
 		throw AForm::GradeTooLowException();
 }
