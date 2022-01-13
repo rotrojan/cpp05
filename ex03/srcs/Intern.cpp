@@ -6,7 +6,7 @@
 /*   By: bigo <rotrojan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 03:15:53 by bigo              #+#    #+#             */
-/*   Updated: 2022/01/12 03:53:24 by bigo             ###   ########.fr       */
+/*   Updated: 2022/01/13 16:56:10 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,41 @@ Intern	&Intern::operator=(Intern const &rhs)
 	return (*this);
 }
 
+// It seems to be realy overkilled to use functions pointers for this where a
+// simple switch/case statement would have been both elegant and optimized.
+// But the 42's evaluation scale wants an array of function pointers, so ...
+// ¯\_(ツ)_/¯
+
+static void	print_form_creation(std::string const &name_form)
+{
+	std::cout << "Intern creates " << name_form << " form" << std::endl;
+}
+
+static AForm	*make_ShrubberyCreationForm(std::string const &form_name, std::string const &form_target)
+{
+	print_form_creation(form_name);
+	return (new ShrubberyCreationForm(form_target));
+}
+
+static AForm	*make_RobotomyRequestForm(std::string const &form_name, std::string const &form_target)
+{
+	print_form_creation(form_name);
+	return (new RobotomyRequestForm(form_target));
+}
+
+static AForm	*make_PredidentialPardonForm(std::string const &form_name, std::string const &form_target)
+{
+	print_form_creation(form_name);
+	return (new PresidentialPardonForm(form_target));
+}
+
+static AForm	*make_null_form(std::string const &form_name, std::string const &form_target)
+{
+	(void)form_target;
+	std::cerr << "Form " << form_name << " not know by the administration." << std::endl;
+	return (NULL);
+}
+
 AForm	*Intern::make_form(std::string form_name, std::string form_target)
 {
 	int i = 0;
@@ -47,23 +82,14 @@ AForm	*Intern::make_form(std::string form_name, std::string form_target)
 		"robotomy request",
 		"presidential pardon"
 	};
+	AForm	*(*form_ptr[NB_KNOWN_FORMS + 1])(std::string const &, std::string const &) = {
+		&make_ShrubberyCreationForm,
+		&make_RobotomyRequestForm,
+		&make_PredidentialPardonForm,
+		&make_null_form
+	};
 
 	while (i < NB_KNOWN_FORMS && form_name != known_form[i])
 		++i;
-	if (i < NB_KNOWN_FORMS)
-		std::cout << "Intern creates " << known_form[i] << " form" << std::endl;
-	else
-		std::cerr << "Form " << form_name << " not know by the administration."
-			<< std::endl;
-	switch (i)
-	{
-		case 0:
-			return (new ShrubberyCreationForm(form_target));
-		case 1:
-			return (new RobotomyRequestForm(form_target));
-		case 2:
-			return (new PresidentialPardonForm(form_target));
-		default:
-			return (NULL);
-	}
+	return (form_ptr[i](form_name, form_target));
 }
