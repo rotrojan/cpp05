@@ -6,7 +6,7 @@
 /*   By: bigo <rotrojan@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:54:10 by bigo              #+#    #+#             */
-/*   Updated: 2022/01/10 20:15:23 by bigo             ###   ########.fr       */
+/*   Updated: 2022/01/18 14:04:03 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ static void test(std::string const &name, int grade)
 	}
 	try
 	{
+		bur_ptr->decrement_grade();
+		std::cout << *bur_ptr << std::endl;
+	}
+	catch (std::exception const &except)
+	{
+		std::cerr << "Cannot decrement bureaucrat's grade: " << except.what() << std::endl;
+	}
+	try
+	{
 		bur_ptr->increment_grade();
 		std::cout << *bur_ptr << std::endl;
 	}
@@ -38,12 +47,12 @@ static void test(std::string const &name, int grade)
 	}
 	try
 	{
-		bur_ptr->decrement_grade();
+		bur_ptr->increment_grade();
 		std::cout << *bur_ptr << std::endl;
 	}
 	catch (std::exception const &except)
 	{
-		std::cerr << "Cannot decrement bureaucrat's grade: " << except.what() << std::endl;
+		std::cerr << "Cannot increment bureaucrat's grade: " << except.what() << std::endl;
 	}
 	delete bur_ptr;
 	std::cout << std::endl;
